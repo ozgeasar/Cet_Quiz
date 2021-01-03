@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/Screenx.dart';
 import 'dart:async';
 import 'questionlist.dart';
 import 'question.dart';
 import 'QuestionBox.dart';
+import 'overlay.dart';
 
 class Quiz2 extends StatefulWidget {
   @override
@@ -121,13 +121,23 @@ class _Quiz2State extends State<Quiz2> {
               padding: new EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 10.0),
               child: new Center(
                 child: Text(
-                  _currentQuestion.questionText, style: new TextStyle(color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
+                  _currentQuestion.questionText, style: new TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),),
 
 
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+          ),
 
+          createQuizQuestion(_currentQuestion),
+
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+          ),
+
+          _overlayVisible? new CustomOverlay(_isCorrect): new Container(),
 
         ],
       ),
