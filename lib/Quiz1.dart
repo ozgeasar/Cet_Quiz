@@ -1,151 +1,285 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'questionlist.dart';
-import 'question.dart';
-import 'QuestionBox.dart';
-import 'overlay.dart';
 
-class Quiz1 extends StatefulWidget {
-  @override
-  _Quiz1State createState() => _Quiz1State();
+
+var finalScore = 0;
+var questionNumber = 0;
+var quiz = new AnimalQuiz();
+
+class AnimalQuiz{
+  var images = [
+    "alligator", "cat", "dog", "owl"
+  ];
+
+
+  var questions = [
+    "This animal is a carnivorous reptile.",
+    "_________ like to chase mice and birds.",
+    "Give a _________ a bone and he will find his way home",
+    "A nocturnal animal with some really big eyes",
+  ];
+
+
+  var choices = [
+    ["Cat", "Sheep", "Alligator", "Cow"],
+    ["Cat", "Snail", "Slug", "Horse"],
+    ["Mouse", "Dog", "Elephant", "Donkey"],
+    ["Spider", "Snake", "Hawk", "Owl"]
+  ];
+
+
+  var correctAnswers = [
+    "Alligator", "Cat", "Dog", "Owl"
+  ];
 }
 
-class _Quiz1State extends State<Quiz1> {
+class Quiz1 extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return new Quiz1State();
+  }
+}
+
+class Quiz1State extends State<Quiz1> {
+  @override
+  Widget build(BuildContext context) {
+    return new WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+
+          body: new Container(
+            margin: const EdgeInsets.all(10.0),
+            alignment: Alignment.topCenter,
+            child: new Column(
+              children: <Widget>[
+                new Padding(padding: EdgeInsets.all(20.0)),
+
+                new Container(
+                  alignment: Alignment.centerRight,
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+
+                      new Text("Question ${questionNumber + 1} of ${quiz.questions.length}",
+                        style: new TextStyle(
+                            fontSize: 22.0
+                        ),),
+
+                      new Text("Score: $finalScore",
+                        style: new TextStyle(
+                            fontSize: 22.0
+                        ),)
+                    ],
+                  ),
+                ),
 
 
-  Question _currentQuestion;
-  QuestionList _quizQuestion = new QuestionList(
-      [
-        new Question("How long is an Olympic swimming pool?", "50 meters", "1 meter", "2 meters", "100 meters", "A"),
-        new Question("What country saw a world record 315 million voters turn out for elections on May 20, 1991?", "India", "United States of America", "Soviet Union", "Poland", "A"),
-        new Question("What was the name given to Android 4.3?", "Lollipop", "Nutella", "Jelly Bean", "Froyo", "C"),
-        new Question("Which of these is the name for the failed key escrow device introduced by the National Security Agency in 1993?", "Clipper Chip", "Enigma Machine", "Skipjack", "Nautilus", "A"),
-        new Question("Which one of these is not an official development name for a Ubuntu release?", "Wily Werewolf", "Utopic Unicorn", "Trusty Tahr", "Mystic Mansion", "D"),
-        new Question("How long is an Olympic swimming pool?", "50 meters", "1 meter", "2 meters", "100 meters", "A"),
-        new Question("How long is an Olympic swimming pool?", "50 meters", "1 meter", "2 meters", "100 meters", "A"),
-        new Question("How long is an Olympic swimming pool?", "50 meters", "1 meter", "2 meters", "100 meters", "A"),
-        new Question("How long is an Olympic swimming pool?", "50 meters", "1 meter", "2 meters", "100 meters", "A"),
-        new Question("How long is an Olympic swimming pool?", "50 meters", "1 meter", "2 meters", "100 meters", "A"),
-      ]
-  );
+                //image
+                new Padding(padding: EdgeInsets.all(10.0)),
 
 
-  int _questionNumber = 0;
-  int _score= 0;
-  bool _isCorrect;
-  bool _overlayVisible;
+                new Padding(padding: EdgeInsets.all(10.0)),
 
-  void init(){
-    _overlayVisible = false;
-    _currentQuestion = _quizQuestion.nextQuestion;
-    _questionNumber=_quizQuestion.questionNumber;
+                new Text(quiz.questions[questionNumber],
+                  style: new TextStyle(
+                    fontSize: 20.0,
+                  ),),
+
+                new Padding(padding: EdgeInsets.all(10.0)),
+
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+
+                    //button 1
+                    new MaterialButton(
+                      minWidth: 120.0,
+                      color: Colors.blueGrey,
+                      onPressed: (){
+                        if(quiz.choices[questionNumber][0] == quiz.correctAnswers[questionNumber]){
+                          debugPrint("Correct");
+                          finalScore++;
+                        }else{
+                          debugPrint("Wrong");
+                        }
+                        updateQuestion();
+                      },
+                      child: new Text(quiz.choices[questionNumber][0],
+                        style: new TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white
+                        ),),
+                    ),
+
+                    //button 2
+                    new MaterialButton(
+                      minWidth: 120.0,
+                      color: Colors.blueGrey,
+                      onPressed: (){
+
+                        if(quiz.choices[questionNumber][1] == quiz.correctAnswers[questionNumber]){
+                          debugPrint("Correct");
+                          finalScore++;
+                        }else{
+                          debugPrint("Wrong");
+                        }
+                        updateQuestion();
+                      },
+                      child: new Text(quiz.choices[questionNumber][1],
+                        style: new TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white
+                        ),),
+                    ),
+
+                  ],
+                ),
+
+                new Padding(padding: EdgeInsets.all(10.0)),
+
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+
+                    //button 3
+                    new MaterialButton(
+                      minWidth: 120.0,
+                      color: Colors.blueGrey,
+                      onPressed: (){
+
+                        if(quiz.choices[questionNumber][2] == quiz.correctAnswers[questionNumber]){
+                          debugPrint("Correct");
+                          finalScore++;
+                        }else{
+                          debugPrint("Wrong");
+                        }
+                        updateQuestion();
+                      },
+                      child: new Text(quiz.choices[questionNumber][2],
+                        style: new TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white
+                        ),),
+                    ),
+
+                    //button 4
+                    new MaterialButton(
+                      minWidth: 120.0,
+                      color: Colors.blueGrey,
+                      onPressed: (){
+
+                        if(quiz.choices[questionNumber][3] == quiz.correctAnswers[questionNumber]){
+                          debugPrint("Correct");
+                          finalScore++;
+                        }else{
+                          debugPrint("Wrong");
+                        }
+                        updateQuestion();
+                      },
+                      child: new Text(quiz.choices[questionNumber][3],
+                        style: new TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white
+                        ),),
+                    ),
+
+                  ],
+                ),
+
+                new Padding(padding: EdgeInsets.all(15.0)),
+
+                new Container(
+                    alignment: Alignment.bottomCenter,
+                    child:  new MaterialButton(
+                        minWidth: 240.0,
+                        height: 30.0,
+                        color: Colors.red,
+                        onPressed: resetQuiz,
+                        child: new Text("Quit",
+                          style: new TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white
+                          ),)
+                    )
+                ),
+
+
+
+
+              ],
+            ),
+          ),
+
+        )
+    );
   }
 
-
-
-  void choiceHandler (String choice){
-    if(_questionNumber == _quizQuestion.length) {
-      Timer(Duration(seconds: 3), () => this.setState(() {
-        print("state setted!");
-
-      }
-      ),
-      );
-    }
-    _isCorrect =(choice == _currentQuestion.correctChoice);
-    _score = (_isCorrect)? _score++ : _score;
-
-    this.setState(() {
-      _overlayVisible = true;
+  void resetQuiz(){
+    setState(() {
+      Navigator.pop(context);
+      finalScore = 0;
+      questionNumber = 0;
     });
-
-    Timer(Duration(seconds: 3), ()=>this.setState(() {
-      init();
-    }));
-
   }
 
 
-  Column createQuizQuestion( Question obj) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            new QuestionBox(Colors.deepPurple, "A", obj.choiceA, () {choiceHandler( "A");}),
-            new QuestionBox(Colors.deepPurple, "B", obj.choiceB, () {choiceHandler( "B");}),
-          ],
+
+  void updateQuestion(){
+    setState(() {
+      if(questionNumber == quiz.questions.length - 1){
+        Navigator.push(context, new MaterialPageRoute(builder: (context)=> new Summary(score: finalScore,)));
+
+      }else{
+        questionNumber++;
+      }
+    });
+  }
+}
+
+
+class Summary extends StatelessWidget{
+  final int score;
+  Summary({Key key, @required this.score}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+
+        body: new Container(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              new Text("Final Score: $score",
+                style: new TextStyle(
+                    fontSize: 35.0
+                ),),
+
+              new Padding(padding: EdgeInsets.all(30.0)),
+
+              new MaterialButton(
+                color: Colors.red,
+                onPressed: (){
+                  questionNumber = 0;
+                  finalScore = 0;
+                  Navigator.pop(context);
+                },
+                child: new Text("Reset Quiz",
+                  style: new TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white
+                  ),),)
+
+            ],
+          ),
         ),
-        Row(
-          children: [
-            new QuestionBox(Colors.deepPurple, "C", obj.choiceC, () {choiceHandler( "C");}),
-            new QuestionBox(Colors.deepPurple, "D", obj.choiceD, () {choiceHandler( "D");}),
-          ],
-        ),
 
 
-
-      ],
+      ),
     );
   }
 
 
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-          title: Text('Cet Quiz-1')
-      ),
-
-      body: Column(
-        children: [
-          Center(
-            child: Container(
-              color: new Color(0x476879ff),
-              width: double.infinity,
-              padding: new EdgeInsets.all(6.0),
-              child: Center(
-                child: Text("QUESTION " + _questionNumber.toString(), style: new TextStyle( color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),),
-              ),
-            ),
-          ),
-
-          Center(
-            child: Container(
-              width: double. infinity,
-              decoration: new BoxDecoration(color: Colors.black54),
-              padding: new EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 10.0),
-              child: new Center(
-              child: Text(
-                _currentQuestion.questionText, style: new TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
-              ),),
-
-
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.0),
-          ),
-
-          createQuizQuestion(_currentQuestion),
-
-          Padding(
-            padding: EdgeInsets.only(top: 10.0),
-          ),
-
-          _overlayVisible? new CustomOverlay(_isCorrect): new Container(),
-
-        ],
-        ),
-
-
-      );
-
-
-  }
 }
+

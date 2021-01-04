@@ -4,7 +4,7 @@ import 'questionlist.dart';
 import 'question.dart';
 import 'QuestionBox.dart';
 import 'overlay.dart';
-
+import 'Screenx.dart';
 class Quiz2 extends StatefulWidget {
   @override
   _Quiz2State createState() => _Quiz2State();
@@ -120,8 +120,7 @@ class _Quiz2State extends State<Quiz2> {
               decoration: new BoxDecoration(color: Colors.black54),
               padding: new EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 10.0),
               child: new Center(
-                child: Text(
-                  _currentQuestion.questionText, style: new TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
+                child: Text(_currentQuestion.questionText, style: new TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),),
 
 
